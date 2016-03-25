@@ -14,6 +14,7 @@
 		E956C0F61CA52D1100CD5E7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E956C0F41CA52D1100CD5E7D /* LaunchScreen.storyboard */; };
 		E956C1011CA52D1100CD5E7D /* MergeImageToVideoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956C1001CA52D1100CD5E7D /* MergeImageToVideoTests.swift */; };
 		E956C10C1CA52D1100CD5E7D /* MergeImageToVideoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956C10B1CA52D1100CD5E7D /* MergeImageToVideoUITests.swift */; };
+		E956C11A1CA530D000CD5E7D /* CommonVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956C1191CA530D000CD5E7D /* CommonVideoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		E956C1071CA52D1100CD5E7D /* MergeImageToVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MergeImageToVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E956C10B1CA52D1100CD5E7D /* MergeImageToVideoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeImageToVideoUITests.swift; sourceTree = "<group>"; };
 		E956C10D1CA52D1100CD5E7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E956C1191CA530D000CD5E7D /* CommonVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonVideoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				E956C0F21CA52D1100CD5E7D /* Assets.xcassets */,
 				E956C0F41CA52D1100CD5E7D /* LaunchScreen.storyboard */,
 				E956C0F71CA52D1100CD5E7D /* Info.plist */,
+				E956C1191CA530D000CD5E7D /* CommonVideoViewController.swift */,
 			);
 			path = MergeImageToVideo;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E956C11A1CA530D000CD5E7D /* CommonVideoViewController.swift in Sources */,
 				E956C0EE1CA52D1100CD5E7D /* ViewController.swift in Sources */,
 				E956C0EC1CA52D1100CD5E7D /* AppDelegate.swift in Sources */,
 			);
@@ -400,6 +404,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MergeImageToVideo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dungvh.MergeImageToVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -411,6 +416,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MergeImageToVideo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dungvh.MergeImageToVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
