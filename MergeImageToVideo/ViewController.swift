@@ -11,6 +11,8 @@ import UIKit
 class ViewController: CommonVideoViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    var imageFinal:UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -39,8 +41,8 @@ class ViewController: CommonVideoViewController {
             guard let controller = segue.destinationViewController as? EditImageViewController else{
                 return
             }
-            
-            controller.currentImage = imageView.image
+            let image = sender as? UIImage
+            controller.currentImage = image
         default:
             break
         }
@@ -50,13 +52,19 @@ class ViewController: CommonVideoViewController {
         
     }
     
+    
+    @IBAction func UnwinEditImage(segue:UIStoryboardSegue){
+       imageView.image = imageFinal
+    }
+    
+    
 
     override func openCamera() {
         self.performSegueWithIdentifier("OpenCamera", sender: self)
     }
     
     override func handleImageChooseImage(image: UIImage) {
-        self.performSegueWithIdentifier("EditImage", sender: self)
+        self.performSegueWithIdentifier("EditImage", sender: image)
     }
 }
 extension ViewController:CameraViewControllerDelegate{

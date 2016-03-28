@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Edit Image View Controller-->
@@ -16,10 +17,58 @@
                     <view key="view" contentMode="scaleToFill" id="kRf-FG-lVJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uOD-tJ-DAa">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="igc-vv-9MT">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5k-XW-f2d">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="o8Q-zC-Kj7">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWB-tU-iJ0">
+                                        <rect key="frame" x="9" y="15" width="48" height="30"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <segue destination="icr-De-qSE" kind="unwind" identifier="ExitEdit" unwindAction="UnwinEditImage:" id="j28-v5-v3e"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="z5k-XW-f2d" secondAttribute="bottom" id="4zS-Db-2UM"/>
+                                    <constraint firstItem="z5k-XW-f2d" firstAttribute="leading" secondItem="igc-vv-9MT" secondAttribute="leading" id="59e-EA-egC"/>
+                                    <constraint firstAttribute="trailing" secondItem="z5k-XW-f2d" secondAttribute="trailing" id="ER7-EI-JRP"/>
+                                    <constraint firstAttribute="height" constant="60" id="WSf-fx-yLO"/>
+                                    <constraint firstItem="iWB-tU-iJ0" firstAttribute="leading" secondItem="igc-vv-9MT" secondAttribute="leading" constant="9" id="cbF-0p-9lf"/>
+                                    <constraint firstItem="iWB-tU-iJ0" firstAttribute="centerY" secondItem="igc-vv-9MT" secondAttribute="centerY" id="eKj-Jm-puK"/>
+                                    <constraint firstItem="z5k-XW-f2d" firstAttribute="top" secondItem="igc-vv-9MT" secondAttribute="top" id="r8V-Rd-ElP"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.97524243593215942" green="0.28018671274185181" blue="0.026722133159637451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="igc-vv-9MT" firstAttribute="top" secondItem="kRf-FG-lVJ" secondAttribute="topMargin" id="2MV-R3-lyM"/>
+                            <constraint firstItem="uOD-tJ-DAa" firstAttribute="top" secondItem="kRf-FG-lVJ" secondAttribute="topMargin" id="CPH-Dz-Q8a"/>
+                            <constraint firstItem="uOD-tJ-DAa" firstAttribute="leading" secondItem="kRf-FG-lVJ" secondAttribute="leadingMargin" constant="-20" id="eMb-Rj-9d0"/>
+                            <constraint firstItem="igc-vv-9MT" firstAttribute="leading" secondItem="kRf-FG-lVJ" secondAttribute="leadingMargin" constant="-20" id="eb8-9R-VVc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uOD-tJ-DAa" secondAttribute="trailing" constant="-20" id="rmL-jW-6l6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="igc-vv-9MT" secondAttribute="trailing" constant="-20" id="uXp-Gb-YTV"/>
+                            <constraint firstItem="In2-fv-NmN" firstAttribute="top" secondItem="uOD-tJ-DAa" secondAttribute="bottom" id="xCu-jF-rJc"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="uOD-tJ-DAa" id="d66-j4-R6G"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWH-by-c5S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="icr-De-qSE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="294" y="239"/>
         </scene>
