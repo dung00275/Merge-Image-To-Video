@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MergeImageToVideo/CommonVideoViewController.swift"
-            timestampString = "480592402.017523"
+            timestampString = "480828293.437751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "requestAccessPhotoLibrary(_:)"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MergeImageToVideo/CommonVideoViewController.swift"
-            timestampString = "480593183.990719"
+            filePath = "MergeImageToVideo/CameraViewController.swift"
+            timestampString = "480842823.526916"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "imagePickerController(_:didFinishPickingImage:editingInfo:)"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "setupView()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -164,7 +164,7 @@ extension CommonVideoViewController{
 extension CommonVideoViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     func openChoosePhoto(){
         let controller = UIImagePickerController()
-        controller.sourceType = .PhotoLibrary
+        controller.sourceType = .SavedPhotosAlbum
         controller.mediaTypes = [String(kUTTypeImage)]
         controller.delegate = self
         controller.allowsEditing = true
@@ -179,6 +179,12 @@ extension CommonVideoViewController:UIImagePickerControllerDelegate,UINavigation
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         print("function : \(#function)")
         self.dismissViewControllerAnimated(true, completion: nil)
+        
+        guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else{
+            return
+        }
+        
+        handleImageChooseImage(image)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
@@ -186,3 +192,12 @@ extension CommonVideoViewController:UIImagePickerControllerDelegate,UINavigation
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
+
+// MARK: --- Handle complete choose image
+extension CommonVideoViewController{
+    func handleImageChooseImage(image:UIImage)  {
+        print("Please Override \(#function)")
+    }
+}
+
+
