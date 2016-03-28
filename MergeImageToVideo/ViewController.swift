@@ -46,17 +46,12 @@ class ViewController: CommonVideoViewController {
         default:
             break
         }
-        
-        
-        
-        
     }
     
     
     @IBAction func UnwinEditImage(segue:UIStoryboardSegue){
        imageView.image = imageFinal
     }
-    
     
 
     override func openCamera() {
