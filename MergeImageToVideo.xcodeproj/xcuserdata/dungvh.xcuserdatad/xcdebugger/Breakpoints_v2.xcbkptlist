@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MergeImageToVideo/CameraViewController.swift"
-            timestampString = "480843604.706023"
+            timestampString = "480844836.777102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "setupView()"
             landmarkType = "5">
          </BreakpointContent>

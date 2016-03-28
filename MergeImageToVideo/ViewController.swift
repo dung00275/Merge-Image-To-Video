@@ -24,11 +24,28 @@ class ViewController: CommonVideoViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        guard let controller = segue.destinationViewController as? CameraViewController else{
+        guard let identifier = segue.identifier else {
             return
         }
         
-        controller.delegate = self
+        switch identifier{
+        case "OpenCamera":
+            guard let controller = segue.destinationViewController as? CameraViewController else{
+                return
+            }
+            
+            controller.delegate = self
+        case "EditImage":
+            guard let controller = segue.destinationViewController as? EditImageViewController else{
+                return
+            }
+            
+            controller.currentImage = imageView.image
+        default:
+            break
+        }
+        
+        
         
         
     }
@@ -37,11 +54,15 @@ class ViewController: CommonVideoViewController {
     override func openCamera() {
         self.performSegueWithIdentifier("OpenCamera", sender: self)
     }
+    
+    override func handleImageChooseImage(image: UIImage) {
+        self.performSegueWithIdentifier("EditImage", sender: self)
+    }
 }
 extension ViewController:CameraViewControllerDelegate{
     func takePhoto(image: UIImage, controller: CameraViewController?) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        imageView.image = image
+        handleImageChooseImage(image)
     }
     
     

@@ -32,6 +32,7 @@
                     <connections>
                         <outlet property="imageView" destination="C3d-e1-KH6" id="Hex-XN-Qqb"/>
                         <segue destination="nVk-T9-nbG" kind="presentation" identifier="OpenCamera" modalTransitionStyle="flipHorizontal" id="PCw-dH-ner"/>
+                        <segue destination="91o-6v-OMo" kind="presentation" identifier="EditImage" modalTransitionStyle="crossDissolve" id="JGk-IQ-ica"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -44,7 +45,15 @@
                 <viewControllerPlaceholder storyboardName="Camera" id="nVk-T9-nbG" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SSN-Mn-9Fa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="745.5" y="337"/>
+            <point key="canvasLocation" x="693.5" y="78"/>
+        </scene>
+        <!--EditImage-->
+        <scene sceneID="pRf-0o-Ok2">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EditImage" id="91o-6v-OMo" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KCt-cd-Yfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="660.5" y="509"/>
         </scene>
     </scenes>
 </document>
