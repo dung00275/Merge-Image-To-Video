@@ -11,7 +11,8 @@ import UIKit
 import Photos
 import MobileCoreServices
 
-enum AccessPhotoError:ErrorType,CustomStringConvertible {
+// MARK:--- Error Access type
+enum AccessLibraryError:ErrorType,CustomStringConvertible {
     case NotPermit,
     Restricted,
     Denied
@@ -36,11 +37,44 @@ func showError(message:String?,controller:UIViewController?)  {
     alert.addAction(alertAction)
     controller?.presentViewController(alert, animated: true, completion: nil)
 }
+
+
+// MARK:--- Check Access
 class CommonVideoViewController: UIViewController {
     
+    private func requestAccessCamera(access:(inner:() throws -> Bool) -> ()) {
+        
+        guard UIImagePickerController.isSourceTypeAvailable(.Camera) else{
+            access(inner: { throw NSError(domain: "com.openPhotoLibrary", code: 478, userInfo: [NSLocalizedDescriptionKey:"Camera is unavailable!!!"])})
+            return
+        }
+        
+        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+        switch status {
+            case .Authorized:
+                access(inner: {return true})
+            case .Denied:
+                 access(inner: {throw AccessLibraryError.Denied})
+            case .Restricted:
+                access(inner: {throw AccessLibraryError.Restricted})
+            case .NotDetermined:
+                AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted:Bool) in
+                    if granted{
+                        access(inner: {return true})
+                    }else{
+                        access(inner: {throw AccessLibraryError.NotPermit})
+                    }
+                })
+        }
+        
+    }
    
-    
     private func requestAccessPhotoLibrary(access:(inner:() throws -> Bool) -> ()) {
+        guard UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) else{
+            access(inner: { throw NSError(domain: "com.openPhotoLibrary", code: 478, userInfo: [NSLocalizedDescriptionKey:"Can't Open Photo Library!!!"])})
+            return
+        }
+        
         let currentStatus = PHPhotoLibrary.authorizationStatus()
         switch currentStatus {
             case .NotDetermined:
@@ -48,34 +82,64 @@ class CommonVideoViewController: UIViewController {
                     if status == .Authorized{
                         access(inner: {return true})
                     }else{
-                        access(inner: {throw AccessPhotoError.NotPermit})
+                        access(inner: {throw AccessLibraryError.NotPermit})
                     }
                     
                 }
             case .Authorized:
                 access(inner: {return true})
             case .Restricted:
-                access(inner: {throw AccessPhotoError.Restricted})
+                access(inner: {throw AccessLibraryError.Restricted})
             case .Denied:
-                access(inner: {throw AccessPhotoError.Denied})
+                access(inner: {throw AccessLibraryError.Denied})
         }
     }
+}
 
+// MARK: --- Public function to check + open 
+extension CommonVideoViewController{
     
-    
-    func startMediaBrowserFromViewController() {
-       self.requestAccessPhotoLibrary { [weak self](inner) in
+    // Camera
+    func startOpenCameraFromViewController(){
+        self.requestAccessCamera { [weak self](inner) in
             do{
                 let result = try inner()
-                if result == true {
-                    NSOperationQueue.mainQueue().addOperationWithBlock({
-                        self?.openChoosePhoto()
-                    })
-                    
+                guard result == true else{
+                    throw NSError(domain: "com.openCamera", code: 488, userInfo: [NSLocalizedDescriptionKey:"Error Unknown"])
                 }
                 
-            }catch let error as AccessPhotoError{
-                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    self?.openCamera()
+                })
+
+            }catch let error as AccessLibraryError{
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    showError(error.description, controller: self)
+                })
+            }catch{
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    showError("Something Error!!!", controller: self)
+                })
+            }
+        }
+    }
+    
+    // Photo
+    func startPhotoBrowserFromViewController() {
+        self.requestAccessPhotoLibrary { [weak self](inner) in
+            do{
+                let result = try inner()
+                
+                guard result == true else{
+                    throw NSError(domain: "com.openPhotoLibrary", code: 488, userInfo: [NSLocalizedDescriptionKey:"Error Unknown"])
+                }
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    self?.openChoosePhoto()
+                })
+                
+            }catch let error as AccessLibraryError{
+                NSOperationQueue.mainQueue().addOperationWithBlock({
                     showError(error.description, controller: self)
                 })
             }catch {
@@ -85,15 +149,20 @@ class CommonVideoViewController: UIViewController {
                 
             }
         }
-        
-        
     }
-
 }
 
-// MARK: --- Open Photo
+
+// MARK: --- Open Camera + Override
+extension CommonVideoViewController{
+    func openCamera() {
+        print("Please Override \(#function)")
+    }
+}
+
+// MARK: --- Open Photo + Override
 extension CommonVideoViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
-    private func openChoosePhoto(){
+    func openChoosePhoto(){
         let controller = UIImagePickerController()
         controller.sourceType = .PhotoLibrary
         controller.mediaTypes = [String(kUTTypeImage)]

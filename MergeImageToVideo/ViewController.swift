@@ -13,7 +13,7 @@ class ViewController: CommonVideoViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        startMediaBrowserFromViewController()
+        startPhotoBrowserFromViewController()
     }
 
     override func didReceiveMemoryWarning() {
