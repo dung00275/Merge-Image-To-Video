@@ -81,6 +81,11 @@ class CameraViewController: UIViewController {
         }
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    // MARK:--- Memory Management
     deinit{
         print("\(#function) \(self.dynamicType)")
         if session != nil
@@ -90,6 +95,7 @@ class CameraViewController: UIViewController {
             self.session = nil
         }
     }
+    
 }
 
 // MARK: --- Helper
@@ -273,9 +279,7 @@ extension CameraViewController{
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 takeImage(result: {return image})
             })
-            
         }
-        
     }
 }
 
