@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E924C6C61CAA5941008C2270 /* CreateVideoUltility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E924C6C51CAA5941008C2270 /* CreateVideoUltility.swift */; };
+		E924C6CB1CAA5FE1008C2270 /* sampleVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E924C6CA1CAA5FE1008C2270 /* sampleVideo.mp4 */; };
 		E944B1891CA8DF27001266BE /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E944B1881CA8DF27001266BE /* CameraViewController.swift */; };
 		E944B18B1CA8E13E001266BE /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E944B18A1CA8E13E001266BE /* Camera.storyboard */; };
 		E944B18D1CA9199A001266BE /* EditImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E944B18C1CA9199A001266BE /* EditImage.storyboard */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E924C6C51CAA5941008C2270 /* CreateVideoUltility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateVideoUltility.swift; sourceTree = "<group>"; };
+		E924C6CA1CAA5FE1008C2270 /* sampleVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sampleVideo.mp4; sourceTree = "<group>"; };
 		E944B1881CA8DF27001266BE /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		E944B18A1CA8E13E001266BE /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		E944B18C1CA9199A001266BE /* EditImage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditImage.storyboard; sourceTree = "<group>"; };
@@ -84,6 +88,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E924C6C71CAA597A008C2270 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				E944B1881CA8DF27001266BE /* CameraViewController.swift */,
+				E944B18A1CA8E13E001266BE /* Camera.storyboard */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		E924C6C81CAA5989008C2270 /* Edit Image */ = {
+			isa = PBXGroup;
+			children = (
+				E944B18C1CA9199A001266BE /* EditImage.storyboard */,
+				E944B18E1CA919CC001266BE /* EditImageViewController.swift */,
+			);
+			name = "Edit Image";
+			sourceTree = "<group>";
+		};
+		E924C6C91CAA5999008C2270 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E956C1191CA530D000CD5E7D /* CommonVideoViewController.swift */,
+				E924C6C51CAA5941008C2270 /* CreateVideoUltility.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		E956C0DF1CA52D0F00CD5E7D = {
 			isa = PBXGroup;
 			children = (
@@ -107,17 +138,16 @@
 		E956C0EA1CA52D1100CD5E7D /* MergeImageToVideo */ = {
 			isa = PBXGroup;
 			children = (
+				E924C6CA1CAA5FE1008C2270 /* sampleVideo.mp4 */,
 				E956C0EB1CA52D1100CD5E7D /* AppDelegate.swift */,
 				E956C0ED1CA52D1100CD5E7D /* ViewController.swift */,
 				E956C0EF1CA52D1100CD5E7D /* Main.storyboard */,
 				E956C0F21CA52D1100CD5E7D /* Assets.xcassets */,
 				E956C0F41CA52D1100CD5E7D /* LaunchScreen.storyboard */,
 				E956C0F71CA52D1100CD5E7D /* Info.plist */,
-				E956C1191CA530D000CD5E7D /* CommonVideoViewController.swift */,
-				E944B1881CA8DF27001266BE /* CameraViewController.swift */,
-				E944B18A1CA8E13E001266BE /* Camera.storyboard */,
-				E944B18C1CA9199A001266BE /* EditImage.storyboard */,
-				E944B18E1CA919CC001266BE /* EditImageViewController.swift */,
+				E924C6C91CAA5999008C2270 /* Common */,
+				E924C6C71CAA597A008C2270 /* Camera */,
+				E924C6C81CAA5989008C2270 /* Edit Image */,
 			);
 			path = MergeImageToVideo;
 			sourceTree = "<group>";
@@ -129,7 +159,7 @@
 				E956C1021CA52D1100CD5E7D /* Info.plist */,
 			);
 			path = MergeImageToVideoTests;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		E956C10A1CA52D1100CD5E7D /* MergeImageToVideoUITests */ = {
 			isa = PBXGroup;
@@ -247,6 +277,7 @@
 				E956C0F61CA52D1100CD5E7D /* LaunchScreen.storyboard in Resources */,
 				E944B18D1CA9199A001266BE /* EditImage.storyboard in Resources */,
 				E944B18B1CA8E13E001266BE /* Camera.storyboard in Resources */,
+				E924C6CB1CAA5FE1008C2270 /* sampleVideo.mp4 in Resources */,
 				E956C0F31CA52D1100CD5E7D /* Assets.xcassets in Resources */,
 				E956C0F11CA52D1100CD5E7D /* Main.storyboard in Resources */,
 			);
@@ -276,6 +307,7 @@
 				E956C11A1CA530D000CD5E7D /* CommonVideoViewController.swift in Sources */,
 				E944B1891CA8DF27001266BE /* CameraViewController.swift in Sources */,
 				E956C0EE1CA52D1100CD5E7D /* ViewController.swift in Sources */,
+				E924C6C61CAA5941008C2270 /* CreateVideoUltility.swift in Sources */,
 				E944B18F1CA919CC001266BE /* EditImageViewController.swift in Sources */,
 				E956C0EC1CA52D1100CD5E7D /* AppDelegate.swift in Sources */,
 			);

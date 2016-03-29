@@ -16,7 +16,7 @@ protocol CameraViewControllerDelegate:class {
 }
 
 // MARK: --- Init
-class CameraViewController: UIViewController {
+final class CameraViewController: UIViewController {
     weak var delegate:CameraViewControllerDelegate?
     @IBOutlet weak var btnFlash: UIButton!
     

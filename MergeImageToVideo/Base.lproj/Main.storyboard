@@ -17,20 +17,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIY-6p-XoA">
+                                <rect key="frame" x="248" y="493" width="104" height="30"/>
+                                <state key="normal" title="Apply To Video"/>
+                                <connections>
+                                    <action selector="tapByApplyToVideo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n1k-6g-Ndg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOr-U3-GGF">
+                                <rect key="frame" x="244" y="536" width="113" height="30"/>
+                                <state key="normal" title="Get Image Again"/>
+                                <connections>
+                                    <action selector="tapByGetImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="J3z-uK-nzN"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="eHW-1v-BUW">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C3d-e1-KH6">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="ACL-vZ-2U9"/>
+                                    <constraint firstAttribute="width" constant="300" id="U1X-7x-v2U"/>
+                                </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="C3d-e1-KH6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7li-Wh-lph"/>
-                            <constraint firstAttribute="trailing" secondItem="C3d-e1-KH6" secondAttribute="trailing" id="Ecl-s7-4sR"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="C3d-e1-KH6" secondAttribute="bottom" id="KZw-QN-3iq"/>
-                            <constraint firstItem="C3d-e1-KH6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="T3y-1s-GiD"/>
+                            <constraint firstItem="C3d-e1-KH6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8IB-N4-zZS"/>
+                            <constraint firstItem="C3d-e1-KH6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EkW-8g-iCh"/>
+                            <constraint firstItem="rOr-U3-GGF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ln0-my-wG1"/>
+                            <constraint firstItem="eHW-1v-BUW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Mm8-B3-OS4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rOr-U3-GGF" secondAttribute="bottom" constant="34" id="Ocs-QA-bI4"/>
+                            <constraint firstItem="eHW-1v-BUW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ZNB-3Y-NCb"/>
+                            <constraint firstItem="lIY-6p-XoA" firstAttribute="centerX" secondItem="rOr-U3-GGF" secondAttribute="centerX" id="iLN-dJ-lBX"/>
+                            <constraint firstItem="rOr-U3-GGF" firstAttribute="top" secondItem="lIY-6p-XoA" secondAttribute="bottom" constant="13" id="ogQ-mj-BhN"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="C3d-e1-KH6" id="Hex-XN-Qqb"/>
+                        <outlet property="indicator" destination="eHW-1v-BUW" id="vxE-I9-pc8"/>
                         <segue destination="nVk-T9-nbG" kind="presentation" identifier="OpenCamera" modalTransitionStyle="flipHorizontal" id="PCw-dH-ner"/>
                         <segue destination="91o-6v-OMo" kind="presentation" identifier="EditImage" modalTransitionStyle="crossDissolve" id="JGk-IQ-ica"/>
                     </connections>

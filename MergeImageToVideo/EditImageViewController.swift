@@ -9,26 +9,15 @@
 import Foundation
 import UIKit
 
-struct Vect2D {
-    var x: Float
-    var y: Float
-    
-    var xCG: CGFloat {
-        return CGFloat(x)
-    }
-    var yCG: CGFloat {
-        return CGFloat(y)
-    }
-}
-
+let kMinScale:CGFloat = 0.5
+let kMaxScale:CGFloat = 2
 
 class EditImageViewController: UIViewController {
     
     var currentImage:UIImage?
-    var currentRotation:CGFloat = 0
-    var currentScale:CGFloat = 1
-    var currentTranslate = Vect2D(x: 0, y: 0)
+    var lastScale:CGFloat = 1
     
+    @IBOutlet weak var imageViewMask: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +31,8 @@ class EditImageViewController: UIViewController {
                 return
             }
             
-            controller.imageFinal = currentImage
+            let croppedImage = sender as? UIImage
+            controller.imageFinal = croppedImage
         }
     }
     
@@ -57,63 +47,137 @@ class EditImageViewController: UIViewController {
     }
 }
 
+// MARK:--- Helper Image
+func takeImageFromView(view:UIView) -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, true, UIScreen.mainScreen().scale)
+    view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image
+}
+
+func resizeImageWithNewSize(currentImage:UIImage?,newSize:CGSize) -> UIImage? {
+    guard let currentImage = currentImage else{
+        return nil
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+    currentImage.drawInRect(CGRect(origin: CGPointZero, size: newSize))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage
+}
+
+func cropImageWithTargetFrame(image:UIImage?,target:CGRect) -> UIImage? {
+    guard let contextImage = CGImageCreateWithImageInRect(image?.CGImage, target) else {
+        return nil
+    }
+    
+    let imageFinal = UIImage(CGImage: contextImage,scale: 0,orientation: .Up)
+    
+    return imageFinal
+}
+
+func createImageWithMask(currentImage:UIImage?,maskImage:UIImage) -> UIImage? {
+    
+    let maskRef = maskImage.CGImage
+    
+    
+    let mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+                                 CGImageGetHeight(maskRef),
+                                 CGImageGetBitsPerComponent(maskRef),
+                                 CGImageGetBitsPerPixel(maskRef),
+                                 CGImageGetBytesPerRow(maskRef),
+                                 CGImageGetDataProvider(maskRef),
+                                 nil,
+                                 true)
+    
+    guard let masked = CGImageCreateWithMask(currentImage?.CGImage, mask) else {
+        return nil
+    }
+    
+    let maskedImage = UIImage(CGImage: masked)
+    
+    return maskedImage
+}
+
+// MARK:--- Action
+extension EditImageViewController{
+    
+    @IBAction func tapByDone(sender: AnyObject) {
+        let scale = UIScreen.mainScreen().scale
+        let maskImage = UIImage(named: "msk_01_crop")!
+        let imageFromView = takeImageFromView(view)
+        var targetFrame = CGRectZero
+        targetFrame.origin = CGPointMake(40 * scale, 100 * scale)
+        targetFrame.size = CGSizeMake(maskImage.size.width * scale, maskImage.size.height * scale)
+        
+        let imageCrop = cropImageWithTargetFrame(imageFromView, target: targetFrame)
+        
+        let imageFinal = createImageWithMask(imageCrop, maskImage: maskImage)
+        
+        self.performSegueWithIdentifier("ExitEdit", sender: imageFinal)
+        
+    }
+}
+
 // MARK:--- Handle Gesture
 extension EditImageViewController{
     func handlePinchGesture(pinchGesture:UIPinchGestureRecognizer) {
-        if pinchGesture.state == .Changed
-        {
-            currentScale = pinchGesture.scale
-            let transform = constructTransform()
-            imageView.transform = transform
+        let state = pinchGesture.state
+        let scale = pinchGesture.scale
+        
+        switch state {
+        case .Began:
+            lastScale = scale
+            fallthrough
+        case .Changed:
+            let currentScale = imageView.layer.valueForKeyPath("transform.scale") as? Float ?? 1
+            print("***** Current Scale : \(currentScale) *****" )
+            var newScale = 1 - (lastScale - scale)
+            newScale = min(newScale, kMaxScale / CGFloat(currentScale))
+            newScale = max(newScale, kMinScale / CGFloat(currentScale))
+            
+            let transform = CGAffineTransformScale(imageView.transform, newScale, newScale)
+            self.imageView.transform = transform
+            lastScale = scale
+            
+        default:
+            break
         }
         
     }
     
     func handlePanGesture(panGesture:UIPanGestureRecognizer) {
-       
-        switch panGesture.state {
-        case .Began:
-            fallthrough
-        case .Changed:
-            let translate = panGesture.translationInView(view)
-            let velocity = panGesture.velocityInView(view)
-            
-            print("velocity : \(velocity)")
-            
-            currentTranslate = Vect2D(x: Float(translate.x), y: Float(translate.y))
-            let transform = constructTransform()
-            imageView.transform = transform
-        default:
-            break
-        }
+        
+        let translation = panGesture.translationInView(view)
+        var centerImagePoint = imageView.center
+        centerImagePoint.x += translation.x
+        centerImagePoint.y += translation.y
+        
+        imageView.center = centerImagePoint
+        panGesture.setTranslation(CGPointZero, inView: view)
+        
     }
     
     func handleRotateGesture(rotateGesture:UIRotationGestureRecognizer) {
-        if rotateGesture.state == .Changed {
-            currentRotation = rotateGesture.rotation
-            let transform = constructTransform()
-            imageView.transform = transform
-        }
+        let angle = rotateGesture.rotation
+        let transform = CGAffineTransformRotate(imageView.transform, angle)
+        imageView.transform = transform
+        rotateGesture.rotation = 0
     }
     
 }
+
 
 // MARK:--- Setup Gesture
 extension EditImageViewController:UIGestureRecognizerDelegate{
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
+        return true
     }
 }
 
 private extension EditImageViewController{
-    
-    func constructTransform() -> CGAffineTransform{
-        let rotationTransform = CGAffineTransformMakeRotation(currentRotation)
-        let scaleTransform = CGAffineTransformScale(rotationTransform, currentScale, currentScale)
-        let translationTransform = CGAffineTransformTranslate(scaleTransform, currentTranslate.xCG, currentTranslate.yCG)
-        return translationTransform
-    }
-    
     func setupGesture() {
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
