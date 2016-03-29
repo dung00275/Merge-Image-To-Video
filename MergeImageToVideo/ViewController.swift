@@ -161,7 +161,8 @@ extension ViewController:ApplyEffectToVideo{
         parentLayer.addSublayer(videoLayer)
         parentLayer.addSublayer(overLay)
         
-        composition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, inLayer: parentLayer)
+        composition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer,
+                                                                        inLayer: parentLayer)
         
         
     }
