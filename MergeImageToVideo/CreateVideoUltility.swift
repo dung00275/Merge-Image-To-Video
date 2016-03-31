@@ -21,6 +21,23 @@ extension ExcutableQueue {
     }
 }
 
+struct Delay:ExcutableQueue {
+    private var kindOfQueue:Queue
+    private var delay:Double
+    internal var queue: dispatch_queue_t{
+        return kindOfQueue.queue
+    }
+    
+    init(delay:Double,queue:Queue){
+        self.kindOfQueue = queue
+        self.delay = delay
+    }
+    
+    func execute(closure: () -> Void) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * self.delay)), queue, closure)
+    }
+}
+
 enum Queue: ExcutableQueue {
     case Main
     case UserInteractive
